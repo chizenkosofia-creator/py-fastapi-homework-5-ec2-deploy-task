@@ -9,6 +9,8 @@ services:
     environment:
       - PYTHONPATH=/usr/src/fastapi
       - ENVIRONMENT=testing
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
       - EMAIL_HOST=mailhog_theater_test
       - EMAIL_PORT=1025
       - EMAIL_HOST_USER=testuser@mate.com
@@ -26,6 +28,8 @@ services:
       mailhog:
         condition: service_started
       minio:
+        condition: service_healthy
+      mongodb:
         condition: service_healthy
     volumes:
       - ./src:/usr/src/fastapi
